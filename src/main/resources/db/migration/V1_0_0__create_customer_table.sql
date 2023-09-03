@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS `customer` (
     `street` varchar(20),
     `state` varchar(10),
     `city` varchar(10),
-    `zip` varchr(6)
+    `zip` varchar(6)
 )
