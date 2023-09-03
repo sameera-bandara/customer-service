@@ -1,0 +1,153 @@
+openapi: 3.0.3
+info:
+  title: Customer Service
+  description: |-
+  version: 1.0.0
+tags:
+  - name: customer
+    description: Customer related operations
+paths:
+  /v1/customers:
+    put:
+      tags:
+        - customer
+      summary: Update an existing customer
+      description: Update an existing customer by id
+      operationId: updateCustomer
+      requestBody:
+        description: Update an existing customer by id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Customer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Validation exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+        - customer
+      summary: Add a new customer
+      description: Add a new customer
+      operationId: addCustomer
+      requestBody:
+        description: Create a new customer
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/customers/{customerId}:
+    get:
+      tags:
+        - customer
+      summary: Finds customer by id
+      description: Finds customer by id
+      operationId: findCustomer
+      parameters:
+        - name: customerId
+          in: path
+          description: customer id
+          required: true
+          schema:
+            type: string
+            format: UUID
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          description: Invalid status value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+          example: 3080fca2-897c-4a82-a781-27bd106f79a9
+        firstName:
+          type: string
+          example: Sameera
+        lastName:
+          type: string
+          example: Bandara
+        address:
+          type: object
+          $ref: '#/components/schemas/Address'
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+          example: 437 Lytton
+        city:
+          type: string
+          example: Palo Alto
+        state:
+          type: string
+          example: CA
+        zip:
+          type: string
+          example: '94301'
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: E001
+        message:
+          type: string
+          example: invalid customerId format
+        detail:
+          type: string
+          example: The format of the customer Id is not valid

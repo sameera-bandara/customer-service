@@ -1,0 +1,10 @@
+com/sameera/customerservice/CustomerServiceApplicationTests.class
+features/GetCustomerTest.class
+com/sameera/customerservice/presentation/mapper/CustomerMapperTest$TestToPresentation.class
+com/sameera/customerservice/presentation/mapper/CustomerMapperTest.class
+features/AddCustomerTest.class
+features/CucumberConfiguration.class
+features/CucumberRunnerTest.class
+com/sameera/customerservice/presentation/mapper/CustomerMapperTest$TestToApplication.class
+com/sameera/customerservice/external/service/FakeCustomerDatabaseHandlerImpl.class
+features/EditCustomerTest.class
