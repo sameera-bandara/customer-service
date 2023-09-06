@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Component
@@ -30,7 +31,7 @@ public class CustomerDatabaseHandlerImpl implements CustomerDatabaseHandler {
     public Customer find(UUID customerId) {
         CustomerEntity customerEntity = customerRepository.findById(customerId).orElse(new CustomerEntity());
 
-        if (customerEntity.getId() == null) {
+        if (Objects.isNull(customerEntity.getId())) {
             throw new CustomerNotFoundException(String.format("No customer found for given id {}", customerId));
         }
 
@@ -40,9 +41,9 @@ public class CustomerDatabaseHandlerImpl implements CustomerDatabaseHandler {
     @Override
     public Customer update(Customer customer) {
 
-        CustomerEntity customerEntity = customerRepository.findById(customer.getId()).get();
+        CustomerEntity customerEntity = customerRepository.findById(customer.getId()).orElse(new CustomerEntity());
 
-        if (customerEntity == null) {
+        if (Objects.isNull(customerEntity.getId())) {
             throw new CustomerNotFoundException(String.format("No customer found for given id {}", customer.getId()));
         }
 
